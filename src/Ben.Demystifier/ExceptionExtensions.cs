@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
+using Ben.Demystifier;
+using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -57,7 +59,11 @@ namespace System.Diagnostics
         /// computes a demystified string representation and then restores the original state of the exception back.
         /// </remarks>
         [Contracts.Pure]
-        public static string ToStringDemystified(this Exception exception) 
+        public static string ToStringDemystified(this Exception exception)
             => new StringBuilder().AppendDemystified(exception).ToString();
+
+        [Contracts.Pure]
+        public static void PrintColoredStringDemystified(this Exception exception)
+            => new MarkupBuilder().AppendDemystified(exception).WriteTo(AnsiConsole.Console);
     }
 }

@@ -10,19 +10,22 @@ class Program
 {
     static void Main(string[] args)
     {
-        Exception exception = null;
+        // Exception exception = null;
         try
         {
             new Program();
         }
         catch (Exception ex)
         {
+            /*
             Console.WriteLine(ex);
             exception = ex.Demystify();
+            */
+            ex.PrintColoredStringDemystified();
         }
 
-        Console.WriteLine();
-        Console.WriteLine(exception);
+        //Console.WriteLine();
+        //Console.WriteLine(exception);
     }
 
     static Action<string, bool> s_action = (string s, bool b) => s_func(s, b);

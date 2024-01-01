@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.IO;
 using System.Text;
+using Ben.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -116,6 +117,40 @@ namespace System.Diagnostics
                 {
                     sb.Append(":line ");
                     sb.Append(lineNo);
+                }
+            }
+        }
+
+        internal void Append(MarkupBuilder sb)
+        {
+            var frames = _frames;
+            var count = frames.Count;
+
+            for (var i = 0; i < count; i++)
+            {
+                if (i > 0)
+                {
+                    sb.NewLine();
+                }
+
+                var frame = frames[i];
+
+                sb.Append("   at ");
+                frame.MethodInfo.Append(sb);
+
+                if (frame.GetFileName() is { } fileName
+                    // IsNullOrEmpty alone wasn't enough to disable the null warning
+                    && !string.IsNullOrEmpty(fileName))
+                {
+                    sb.Append(" in ");
+                    sb.AddTextPath(TryGetFullPath(fileName));
+                }
+
+                var lineNo = frame.GetFileLineNumber();
+                if (lineNo != 0)
+                {
+                    sb.Append(":line ");
+                    sb.AddMarkup($"[skyblue2]{lineNo}[/]");
                 }
             }
         }

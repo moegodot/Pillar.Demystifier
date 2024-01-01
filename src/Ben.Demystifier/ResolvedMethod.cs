@@ -4,6 +4,8 @@
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
+using Ben.Demystifier;
+using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -51,6 +53,9 @@ namespace System.Diagnostics
         public override string ToString() => Append(new StringBuilder()).ToString();
 
         public StringBuilder Append(StringBuilder builder)
+            => Append(builder, true);
+
+        public MarkupBuilder Append(MarkupBuilder builder)
             => Append(builder, true);
 
         public StringBuilder Append(StringBuilder builder, bool fullName)
@@ -164,9 +169,132 @@ namespace System.Diagnostics
             return builder;
         }
 
+
+        public MarkupBuilder Append(MarkupBuilder builder, bool fullName)
+        {
+            if (IsAsync)
+            {
+                builder.AddMarkup("[white bold]async [/]");
+            }
+
+            if (ReturnParameter != null)
+            {
+                {
+                    var sb = new StringBuilder();
+                    ReturnParameter.Append(sb);
+                    builder.AddMarkup($"[blue]{Markup.Escape(sb.ToString())}[/]");
+                }
+                builder.Append(" ");
+            }
+
+            if (DeclaringType != null)
+            {
+
+                if (Name == ".ctor")
+                {
+                    if (string.IsNullOrEmpty(SubMethod) && !IsLambda)
+                        builder.AddMarkup("[yellow]new[/] ");
+
+                    AppendDeclaringTypeName(builder, fullName);
+                }
+                else if (Name == ".cctor")
+                {
+                    builder.Append("[yellow]static[/] ");
+                    AppendDeclaringTypeName(builder, fullName);
+                }
+                else
+                {
+                    AppendDeclaringTypeName(builder, fullName)
+                        .Append(".")
+                        .AddMarkup($"[yellow bold]{Markup.Escape(Name ?? "null")}[/]");
+                }
+            }
+            else
+            {
+                builder.AddMarkup($"[yellow]{Markup.Escape(Name ?? "null")}[/]");
+            }
+            builder.Append(GenericArguments);
+
+            builder.Append("(");
+            if (MethodBase != null)
+            {
+                var isFirst = true;
+                foreach (var param in Parameters)
+                {
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        builder.Append(", ");
+                    }
+                    param.Append(builder);
+                }
+            }
+            else
+            {
+                builder.Append("?");
+            }
+            builder.Append(")");
+
+            if (!string.IsNullOrEmpty(SubMethod) || IsLambda)
+            {
+                builder.Append("+");
+                builder.AddMarkup($"[lightslateblue]{Markup.Escape(new StringBuilder().Append(SubMethod).ToString())}[/]");
+                builder.Append("(");
+                if (SubMethodBase != null)
+                {
+                    var isFirst = true;
+                    foreach (var param in SubMethodParameters)
+                    {
+                        if (isFirst)
+                        {
+                            isFirst = false;
+                        }
+                        else
+                        {
+                            builder.Append(", ");
+                        }
+                        param.Append(builder);
+                    }
+                }
+                else
+                {
+                    builder.Append("?");
+                }
+                builder.Append(")");
+                if (IsLambda)
+                {
+                    builder.AddMarkup("[lightslateblue] => { }[/]");
+
+                    if (Ordinal.HasValue)
+                    {
+                        builder.Append(" [");
+                        builder.Append(Ordinal);
+                        builder.Append("]");
+                    }
+                }
+            }
+
+            if (RecurseCount > 0)
+            {
+                builder.Append($" x {RecurseCount + 1:0}");
+            }
+
+            return builder;
+        }
+
         private StringBuilder AppendDeclaringTypeName(StringBuilder builder, bool fullName = true)
         {
             return DeclaringType != null ? builder.AppendTypeDisplayName(DeclaringType, fullName: fullName, includeGenericParameterNames: true) : builder;
+        }
+
+        private MarkupBuilder AppendDeclaringTypeName(MarkupBuilder builder, bool fullName = true)
+        {
+            StringBuilder sb = new();
+            AppendDeclaringTypeName(sb,fullName);
+            return builder.AddMarkup($"{Markup.Escape(sb.ToString())}");
         }
     }
 }

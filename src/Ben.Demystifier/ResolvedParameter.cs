@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Text;
+using Ben.Demystifier;
+using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -51,9 +53,50 @@ namespace System.Diagnostics
             return sb;
         }
 
+        public MarkupBuilder Append(MarkupBuilder sb)
+        {
+            if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
+                return sb;
+
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                sb.AddMarkup($"[white bold]{Markup.Escape(Prefix)}[/]")
+                  .Append(" ");
+            }
+
+            if (IsDynamicType)
+            {
+                sb.AddMarkup("[blue]dynamic[/]");
+            }
+            else if (ResolvedType != null)
+            {
+                AppendTypeName(sb);
+            }
+            else
+            {
+                sb.Append("?");
+            }
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                sb.Append(" ")
+                  .Append(Name);
+            }
+
+            return sb;
+        }
+
         protected virtual void AppendTypeName(StringBuilder sb) 
         {
             sb.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
+        }
+
+        protected virtual void AppendTypeName(MarkupBuilder sb)
+        {
+            StringBuilder stringBuilder = new();
+            stringBuilder.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
+
+            sb.AddMarkup($"[blue]{Markup.Escape(stringBuilder.ToString())}[/]");
         }
     }
 }
