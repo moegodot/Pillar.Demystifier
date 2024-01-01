@@ -5,8 +5,8 @@
     <Title>Utopia.Demystifier</Title>
     <Description>The best way to output any exceptions.</Description>
     <Authors>Ben Adams,MingMoe</Authors>
-    <RepositoryUrl>https://github.com/benaadams/Ben.Demystifier</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/benaadams/Ben.Demystifier</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mingmoe/Utopia.Demystifier</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mingmoe/Utopia.Demystifier</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <IncludeSource>true</IncludeSource>
