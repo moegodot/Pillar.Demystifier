@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public class ResolvedMethodTests
     {

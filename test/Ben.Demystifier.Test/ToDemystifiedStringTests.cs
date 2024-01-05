@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public sealed class ToDemystifiedStringTests
     {

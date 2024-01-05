@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.Internal;
 using Xunit;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public class ReflectionHelperTest
     {

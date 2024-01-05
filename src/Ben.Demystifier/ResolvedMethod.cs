@@ -4,7 +4,7 @@
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
-using Ben.Demystifier;
+using Utopia.Demystifier;
 using Spectre.Console;
 
 namespace System.Diagnostics

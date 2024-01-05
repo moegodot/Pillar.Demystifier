@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
-using Ben.Demystifier;
+using Utopia.Demystifier;
 using Spectre.Console;
 
 namespace System.Diagnostics
@@ -64,6 +64,10 @@ namespace System.Diagnostics
 
         [Contracts.Pure]
         public static void PrintColoredStringDemystified(this Exception exception)
-            => new MarkupBuilder().AppendDemystified(exception).WriteTo(AnsiConsole.Console);
+            => new MarkupBuilder().AppendColoredDemystified(exception).WriteTo(AnsiConsole.Console);
+
+        [Contracts.Pure]
+        public static MarkupBuilder ToMarkupsDemystified(this Exception exception)
+            => new MarkupBuilder().AppendColoredDemystified(exception);
     }
 }

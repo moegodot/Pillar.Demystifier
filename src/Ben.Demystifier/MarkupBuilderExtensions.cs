@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ben.Demystifier;
+namespace Utopia.Demystifier;
 
 public static class MarkupBuilderExtensions
 {
-    public static MarkupBuilder AppendDemystified(this MarkupBuilder builder, Exception exception)
+    public static MarkupBuilder AppendColoredDemystified(this MarkupBuilder builder, Exception exception)
     {
         try
         {
@@ -33,13 +33,13 @@ public static class MarkupBuilderExtensions
             {
                 foreach (var ex in EnumerableIList.Create(aggEx.InnerExceptions))
                 {
-                    builder.AppendInnerException(ex);
+                    builder.AppendColoredInnerException(ex);
                 }
             }
 
             if (exception.InnerException != null)
             {
-                builder.AppendInnerException(exception.InnerException);
+                builder.AppendColoredInnerException(exception.InnerException);
             }
         }
         catch(Exception e)
@@ -51,10 +51,10 @@ public static class MarkupBuilderExtensions
         return builder;
     }
 
-    private static void AppendInnerException(this MarkupBuilder builder, Exception exception)
+    private static void AppendColoredInnerException(this MarkupBuilder builder, Exception exception)
         => builder.Append(" ---> ")
             .NewLine()
-            .AppendDemystified(exception)
+            .AppendColoredDemystified(exception)
             .AppendLine()
             .Append("   --- End of inner exception stack trace ---");
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace Ben.Demystifier;
+namespace Utopia.Demystifier;
 
 public class MarkupBuilder
 {

@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Ben.Demystifier.Benchmarks
+namespace Utopia.Demystifier.Benchmarks
 {
     public static class Program
     {

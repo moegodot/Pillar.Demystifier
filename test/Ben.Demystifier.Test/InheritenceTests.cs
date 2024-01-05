@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public class InheritenceTests
     {

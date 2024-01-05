@@ -1,4 +1,4 @@
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     using System;
     using System.Diagnostics;

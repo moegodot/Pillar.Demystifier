@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public class GenericMethodDisplayStringTests
     {

@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Xunit;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     public class TypeNameTests
     {

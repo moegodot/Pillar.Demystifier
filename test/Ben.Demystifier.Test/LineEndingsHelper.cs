@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Ben.Demystifier.Test
+namespace Utopia.Demystifier.Test
 {
     internal static class LineEndingsHelper
     {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
-namespace Ben.Demystifier.Benchmarks
+namespace Utopia.Demystifier.Benchmarks
 {
     [SimpleJob(RuntimeMoniker.Net48)]
     [SimpleJob(RuntimeMoniker.NetCoreApp21)]
