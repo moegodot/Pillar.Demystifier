@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2FCCAAC-BE9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{59CA6310-4AA5-4093-95D4-472B94DC0CD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utopia.Demystifier", "src\Ben.Demystifier\Utopia.Demystifier.csproj", "{5410A056-89AB-4912-BD1E-A63616AD91D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mingmoe.Demystifier", "src\Mingmoe.Demystifier\Mingmoe.Demystifier.csproj", "{5410A056-89AB-4912-BD1E-A63616AD91D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ben.Demystifier.Test", "test\Ben.Demystifier.Test\Ben.Demystifier.Test.csproj", "{B9E150B0-AEEB-4D98-8BE1-92C1296699A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mingmoe.Demystifier.Test", "test\Mingmoe.Demystifier.Test\Mingmoe.Demystifier.Test.csproj", "{B9E150B0-AEEB-4D98-8BE1-92C1296699A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{455921D3-DD54-4355-85CF-F4009DF2AB70}"
 EndProject

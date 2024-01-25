@@ -1,11 +1,10 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Mingmoe.Demystifier;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
-using Utopia.Demystifier;
-using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -55,8 +54,10 @@ namespace System.Diagnostics
         public StringBuilder Append(StringBuilder builder)
             => Append(builder, true);
 
-        public MarkupBuilder Append(MarkupBuilder builder)
-            => Append(builder, true);
+        public StyledBuilder Append(
+            StyledBuilder builder,
+            StyledBuilderOption option)
+            => Append(builder, true, option);
 
         public StringBuilder Append(StringBuilder builder, bool fullName)
         {
@@ -170,11 +171,11 @@ namespace System.Diagnostics
         }
 
 
-        public MarkupBuilder Append(MarkupBuilder builder, bool fullName)
+        public StyledBuilder Append(StyledBuilder builder, bool fullName, StyledBuilderOption option)
         {
             if (IsAsync)
             {
-                builder.AddMarkup("[white bold]async [/]");
+                builder.Append(option.KeywordAsyncStyle,"async ");
             }
 
             if (ReturnParameter != null)
@@ -182,7 +183,7 @@ namespace System.Diagnostics
                 {
                     var sb = new StringBuilder();
                     ReturnParameter.Append(sb);
-                    builder.AddMarkup($"[blue]{Markup.Escape(sb.ToString())}[/]");
+                    builder.Append(option.MethodReturnTypeStyle,sb.ToString());
                 }
                 builder.Append(" ");
             }
@@ -193,27 +194,27 @@ namespace System.Diagnostics
                 if (Name == ".ctor")
                 {
                     if (string.IsNullOrEmpty(SubMethod) && !IsLambda)
-                        builder.AddMarkup("[yellow]new[/] ");
+                        builder.Append(option.KeywordNewStyle,"new ");
 
-                    AppendDeclaringTypeName(builder, fullName);
+                    AppendDeclaringTypeName(builder,fullName, option);
                 }
                 else if (Name == ".cctor")
                 {
-                    builder.Append("[yellow]static[/] ");
-                    AppendDeclaringTypeName(builder, fullName);
+                    builder.Append(option.KeywordStaticStyle,"static ");
+                    AppendDeclaringTypeName(builder,fullName, option);
                 }
                 else
                 {
-                    AppendDeclaringTypeName(builder, fullName)
+                    AppendDeclaringTypeName(builder,fullName,option)
                         .Append(".")
-                        .AddMarkup($"[yellow bold]{Markup.Escape(Name ?? "null")}[/]");
+                        .Append(option.MethodNameStyle,Name ?? "null");
                 }
             }
             else
             {
-                builder.AddMarkup($"[yellow]{Markup.Escape(Name ?? "null")}[/]");
+                builder.Append(option.MethodNameStyle, Name ?? "null");
             }
-            builder.Append(GenericArguments);
+            builder.Append(option.GenericArgumentStyle,GenericArguments ?? string.Empty);
 
             builder.Append("(");
             if (MethodBase != null)
@@ -229,7 +230,7 @@ namespace System.Diagnostics
                     {
                         builder.Append(", ");
                     }
-                    param.Append(builder);
+                    param.Append(builder, option);
                 }
             }
             else
@@ -241,7 +242,7 @@ namespace System.Diagnostics
             if (!string.IsNullOrEmpty(SubMethod) || IsLambda)
             {
                 builder.Append("+");
-                builder.AddMarkup($"[lightslateblue]{Markup.Escape(new StringBuilder().Append(SubMethod).ToString())}[/]");
+                builder.Append(option.SubMethodOrLambdaStyle,new StringBuilder().Append(SubMethod).ToString());
                 builder.Append("(");
                 if (SubMethodBase != null)
                 {
@@ -256,7 +257,7 @@ namespace System.Diagnostics
                         {
                             builder.Append(", ");
                         }
-                        param.Append(builder);
+                        param.Append(builder, option);
                     }
                 }
                 else
@@ -266,12 +267,13 @@ namespace System.Diagnostics
                 builder.Append(")");
                 if (IsLambda)
                 {
-                    builder.AddMarkup("[lightslateblue] => { }[/]");
+                    builder.Append(option.SubMethodOrLambdaStyle," => { }");
 
                     if (Ordinal.HasValue)
                     {
                         builder.Append(" [");
-                        builder.Append(Ordinal);
+                        builder.Append(Ordinal.ToString() ??
+                            throw new InvalidOperationException());
                         builder.Append("]");
                     }
                 }
@@ -290,11 +292,11 @@ namespace System.Diagnostics
             return DeclaringType != null ? builder.AppendTypeDisplayName(DeclaringType, fullName: fullName, includeGenericParameterNames: true) : builder;
         }
 
-        private MarkupBuilder AppendDeclaringTypeName(MarkupBuilder builder, bool fullName = true)
+        private StyledBuilder AppendDeclaringTypeName(StyledBuilder builder, bool fullName,StyledBuilderOption option)
         {
             StringBuilder sb = new();
             AppendDeclaringTypeName(sb,fullName);
-            return builder.AddMarkup($"{Markup.Escape(sb.ToString())}");
+            return builder.Append(option.DeclaringTypeOfMethodStyle,sb.ToString());
         }
     }
 }

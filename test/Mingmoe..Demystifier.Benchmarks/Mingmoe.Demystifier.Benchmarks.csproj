@@ -5,7 +5,7 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ben.Demystifier\Utopia.Demystifier.csproj" />
+    <ProjectReference Include="..\..\src\Mingmoe.Demystifier\Mingmoe.Demystifier.csproj" />
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
   </ItemGroup>
 </Project>

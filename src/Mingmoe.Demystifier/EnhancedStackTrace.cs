@@ -1,12 +1,12 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Mingmoe.Demystifier;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.IO;
 using System.Text;
-using Utopia.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -121,7 +121,7 @@ namespace System.Diagnostics
             }
         }
 
-        internal void Append(MarkupBuilder sb)
+        internal void Append(StyledBuilder sb,StyledBuilderOption option)
         {
             var frames = _frames;
             var count = frames.Count;
@@ -130,27 +130,27 @@ namespace System.Diagnostics
             {
                 if (i > 0)
                 {
-                    sb.NewLine();
+                    sb.AppendLine();
                 }
 
                 var frame = frames[i];
 
                 sb.Append("   at ");
-                frame.MethodInfo.Append(sb);
+                frame.MethodInfo.Append(sb, option);
 
                 if (frame.GetFileName() is { } fileName
                     // IsNullOrEmpty alone wasn't enough to disable the null warning
                     && !string.IsNullOrEmpty(fileName))
                 {
                     sb.Append(" in ");
-                    sb.AddTextPath(TryGetFullPath(fileName));
+                    sb.AppendPath(option.SourceFilePathStyle,TryGetFullPath(fileName),option.shortenSourceFilePath);
                 }
 
                 var lineNo = frame.GetFileLineNumber();
                 if (lineNo != 0)
                 {
                     sb.Append(":line ");
-                    sb.AddMarkup($"[skyblue2]{lineNo}[/]");
+                    sb.Append(option.LineNumberStyle,lineNo.ToString());
                 }
             }
         }

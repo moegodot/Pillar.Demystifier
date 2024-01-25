@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ben.Demystifier\Utopia.Demystifier.csproj" />
+    <ProjectReference Include="..\..\src\Mingmoe.Demystifier\Mingmoe.Demystifier.csproj" />
   </ItemGroup>
 
 </Project>

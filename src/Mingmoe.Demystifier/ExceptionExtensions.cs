@@ -1,12 +1,11 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Mingmoe.Demystifier;
 using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
-using Utopia.Demystifier;
-using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -63,11 +62,13 @@ namespace System.Diagnostics
             => new StringBuilder().AppendDemystified(exception).ToString();
 
         [Contracts.Pure]
-        public static void PrintColoredStringDemystified(this Exception exception)
-            => new MarkupBuilder().AppendColoredDemystified(exception).WriteTo(AnsiConsole.Console);
+        public static void PrintColoredStringDemystified(this Exception exception,StyledBuilderOption? option = null)
+            => Console.Write(new StyledBuilder().AppendColoredDemystified(exception,
+                option ?? new StyledBuilderOption()));
 
         [Contracts.Pure]
-        public static MarkupBuilder ToMarkupsDemystified(this Exception exception)
-            => new MarkupBuilder().AppendColoredDemystified(exception);
+        public static string ToColoredStringDemystified(this Exception exception, StyledBuilderOption? option = null)
+            => new StyledBuilder().AppendColoredDemystified(exception,
+                option ?? new StyledBuilderOption()).ToString();
     }
 }

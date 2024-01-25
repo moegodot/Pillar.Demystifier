@@ -1,3 +1,4 @@
+using Mingmoe.Demystifier;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ class Program
 {
     static void Main(string[] args)
     {
+
         // Exception exception = null;
         try
         {
@@ -21,7 +23,10 @@ class Program
             Console.WriteLine(ex);
             exception = ex.Demystify();
             */
-            ex.PrintColoredStringDemystified();
+
+            StyledBuilderOption option = new();
+
+            ex.PrintColoredStringDemystified(option);
         }
 
         //Console.WriteLine();

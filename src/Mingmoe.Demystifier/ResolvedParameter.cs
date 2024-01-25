@@ -1,9 +1,8 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Mingmoe.Demystifier;
 using System.Text;
-using Utopia.Demystifier;
-using Spectre.Console;
 
 namespace System.Diagnostics
 {
@@ -53,24 +52,24 @@ namespace System.Diagnostics
             return sb;
         }
 
-        public MarkupBuilder Append(MarkupBuilder sb)
+        public StyledBuilder Append(StyledBuilder sb,StyledBuilderOption option)
         {
             if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
                 return sb;
 
             if (!string.IsNullOrEmpty(Prefix))
             {
-                sb.AddMarkup($"[white bold]{Markup.Escape(Prefix)}[/]")
+                sb.Append(option.ParamPrefixStyle, Prefix ?? string.Empty)
                   .Append(" ");
             }
 
             if (IsDynamicType)
             {
-                sb.AddMarkup("[blue]dynamic[/]");
+                sb.Append(option.KeywordDynamicStyle,"dynamic");
             }
             else if (ResolvedType != null)
             {
-                AppendTypeName(sb);
+                AppendTypeName(sb,option);
             }
             else
             {
@@ -80,7 +79,7 @@ namespace System.Diagnostics
             if (!string.IsNullOrEmpty(Name))
             {
                 sb.Append(" ")
-                  .Append(Name);
+                  .Append(option.ParamNameStyle,Name ?? string.Empty);
             }
 
             return sb;
@@ -91,12 +90,12 @@ namespace System.Diagnostics
             sb.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
         }
 
-        protected virtual void AppendTypeName(MarkupBuilder sb)
+        protected virtual void AppendTypeName(StyledBuilder sb,StyledBuilderOption option)
         {
             StringBuilder stringBuilder = new();
             stringBuilder.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
 
-            sb.AddMarkup($"[blue]{Markup.Escape(stringBuilder.ToString())}[/]");
+            sb.Append(option.ParamTypeStyle, stringBuilder.ToString());
         }
     }
 }
