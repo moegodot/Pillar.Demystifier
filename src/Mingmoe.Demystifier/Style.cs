@@ -42,6 +42,7 @@ public class Color
     public static readonly Color Cornflowerblue = new Color(95, 135, 255);
     public static readonly Color Darkviolet = new Color(135, 0, 215);
     public static readonly Color Darkkhaki = new Color(175, 175, 95);
+    public static readonly Color Mediumorchid1 = new Color(215, 95, 255);
 }
 
 /// <summary>
@@ -50,7 +51,7 @@ public class Color
 public class Style
 {
 
-    public Color? Background { get; set; } = null;
+    public Color? BackgroundColor { get; set; } = null;
 
     public Color? ForeColor { get; set; } = null;
 
@@ -69,9 +70,9 @@ public class Style
     {
         StringBuilder sb = new StringBuilder();
 
-        if (Background != null)
+        if (BackgroundColor != null)
         {
-            sb.Append($"\x001B[48;2;{Background}m");
+            sb.Append($"\x001B[48;2;{BackgroundColor}m");
         }
         if (ForeColor != null)
         {

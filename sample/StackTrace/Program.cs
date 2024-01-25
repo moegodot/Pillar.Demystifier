@@ -12,25 +12,50 @@ class Program
     static void Main(string[] args)
     {
 
-        // Exception exception = null;
         try
         {
             new Program();
         }
         catch (Exception ex)
         {
-            /*
-            Console.WriteLine(ex);
-            exception = ex.Demystify();
-            */
+            using StyledBuilder styled = new();
 
-            StyledBuilderOption option = new();
+            // original
+            styled.Append(new Style()
+            {
+                BackgroundColor = Color.Red,
+                isBold = true,
+                isUnderline = true
+            },"Original");
+            styled.AppendLine();
+            styled.Append(ex.ToString());
 
-            ex.PrintColoredStringDemystified(option);
+            // Demystify
+            styled.AppendLine();
+            styled.AppendLine();
+            styled.Append(new Style()
+            {
+                BackgroundColor = Color.Red,
+                isBold = true,
+                isUnderline = true
+            }, "Demystify");
+            styled.AppendLine();
+            styled.Append(ex.Demystify().ToString());
+
+            // Colored Demystify
+            styled.AppendLine();
+            styled.AppendLine();
+            styled.Append(new Style()
+            {
+                BackgroundColor = Color.Red,
+                isBold = true,
+                isUnderline = true
+            }, "Colored Demystify");
+            styled.AppendLine();
+            styled.Append(ex.ToColoredStringDemystified());
+
+            Console.Write(styled.ToString());
         }
-
-        //Console.WriteLine();
-        //Console.WriteLine(exception);
     }
 
     static Action<string, bool> s_action = (string s, bool b) => s_func(s, b);

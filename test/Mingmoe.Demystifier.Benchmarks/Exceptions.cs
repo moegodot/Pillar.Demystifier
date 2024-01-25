@@ -19,11 +19,23 @@ namespace Utopia.Demystifier.Benchmarks
         [Benchmark(Description = "Demystify().ToString()")]
         public string Demystify() => new Exception().Demystify().ToString();
 
+        [Benchmark(Description = "ColoredDemystify().ToString()")]
+        public string ColoredDemystify() => new Exception().ColoredDemystify().ToString();
+
+        [Benchmark(Description = "ToColoredStringDemystifiedtify()")]
+        public string ToColoredString() => new Exception().ToColoredStringDemystified();
+
         [Benchmark(Description = "(left, right).ToString()")]
         public string ToStringForTupleBased() => GetException(() => ReturnsTuple()).ToString();
 
         [Benchmark(Description = "(left, right).Demystify().ToString()")]
         public string ToDemystifyForTupleBased() => GetException(() => ReturnsTuple()).Demystify().ToString();
+
+        [Benchmark(Description = "(left, right).ColoredDemystify().ToString()")]
+        public string ToColoedDemystifyForTupleBased() => GetException(() => ReturnsTuple()).ColoredDemystify().ToString();
+
+        [Benchmark(Description = "(left, right).ToColoredStringDemystified()")]
+        public string ToColoredStringForTupleBased() => GetException(() => ReturnsTuple()).ToColoredStringDemystified();
 
         private static Exception GetException(Action action)
         {

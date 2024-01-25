@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ben.Demystifier.Benchmarks", "test\Ben.Demystifier.Benchmarks\Ben.Demystifier.Benchmarks.csproj", "{EF5557DF-C48E-4999-846C-D99A92E86373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mingmoe.Demystifier.Benchmarks", "test\Mingmoe.Demystifier.Benchmarks\Mingmoe.Demystifier.Benchmarks.csproj", "{EF5557DF-C48E-4999-846C-D99A92E86373}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpStackTrace", "sample\FSharpStackTrace\FSharpStackTrace.fsproj", "{D6B779D2-A678-47CC-A2F9-A312292EA7A2}"
 EndProject

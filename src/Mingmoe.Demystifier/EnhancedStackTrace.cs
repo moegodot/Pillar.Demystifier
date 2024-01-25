@@ -85,6 +85,17 @@ namespace System.Diagnostics
             return sb.ToString();
         }
 
+        public string ToColoredString(StyledBuilderOption option)
+        {
+
+            if (_frames == null || _frames.Count == 0) return "";
+
+            var sb = new StyledBuilder();
+
+            Append(sb,option);
+
+            return sb.ToString();
+        }
 
         internal void Append(StringBuilder sb)
         {
@@ -143,7 +154,10 @@ namespace System.Diagnostics
                     && !string.IsNullOrEmpty(fileName))
                 {
                     sb.Append(" in ");
-                    sb.AppendPath(option.SourceFilePathStyle,TryGetFullPath(fileName),option.shortenSourceFilePath);
+                    sb.AppendPath(
+                        option.SourcePathStyle,
+                        option.SourceFileStyle,
+                        TryGetFullPath(fileName),option.shortenSourceFilePath);
                 }
 
                 var lineNo = frame.GetFileLineNumber();

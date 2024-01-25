@@ -25,10 +25,23 @@ public class StyledBuilder : IDisposable
         return this;
     }
 
-    public StyledBuilder AppendPath(Style style,string path,bool shortenPath)
+    public StyledBuilder AppendPath(Style pathStyle,Style fileStyle,string path,bool shortenPath)
     {
-        return this.Append(style,
-            shortenPath ? Path.GetFileName(path) : path);
+        if (shortenPath)
+        {
+            return this.Append(
+                fileStyle,
+                Path.GetFileName(path));
+        }
+        else {
+            return this.Append(
+                pathStyle,
+                Path.GetDirectoryName(path) ?? string.Empty)
+                .Append(Path.DirectorySeparatorChar.ToString())
+                .Append(
+                fileStyle,
+                Path.GetFileName(path));
+        }
     }
 
     public StyledBuilder AppendLine(string text)

@@ -48,6 +48,40 @@ namespace System.Diagnostics
             return exception;
         }
 
+
+        /// <summary>
+        /// Demystifies the given <paramref name="exception"/> and tracks the original stack traces for the whole exception tree.
+        /// </summary>
+        public static T ColoredDemystify<T>(this T exception,StyledBuilderOption? option = null) where T : Exception
+        {
+            option = option ?? StyledBuilderOption.GlobalOption;
+            try
+            {
+                var stackTrace = new EnhancedStackTrace(exception);
+
+                if (stackTrace.FrameCount > 0)
+                {
+                    exception.SetStackTracesString(stackTrace.ToColoredString(option));
+                }
+
+                if (exception is AggregateException aggEx)
+                {
+                    foreach (var ex in EnumerableIList.Create(aggEx.InnerExceptions))
+                    {
+                        ex.ColoredDemystify(option);
+                    }
+                }
+
+                exception.InnerException?.ColoredDemystify(option);
+            }
+            catch
+            {
+                // Processing exceptions shouldn't throw exceptions; if it fails
+            }
+
+            return exception;
+        }
+
         /// <summary>
         /// Gets demystified string representation of the <paramref name="exception"/>.
         /// </summary>
@@ -64,11 +98,11 @@ namespace System.Diagnostics
         [Contracts.Pure]
         public static void PrintColoredStringDemystified(this Exception exception,StyledBuilderOption? option = null)
             => Console.Write(new StyledBuilder().AppendColoredDemystified(exception,
-                option ?? new StyledBuilderOption()));
+                option ?? StyledBuilderOption.GlobalOption));
 
         [Contracts.Pure]
         public static string ToColoredStringDemystified(this Exception exception, StyledBuilderOption? option = null)
             => new StyledBuilder().AppendColoredDemystified(exception,
-                option ?? new StyledBuilderOption()).ToString();
+                option ?? StyledBuilderOption.GlobalOption).ToString();
     }
 }

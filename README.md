@@ -2,15 +2,57 @@
 [![NuGet version (Ben.Demystifier)](https://img.shields.io/nuget/v/Ben.Demystifier.svg?style=flat-square)](https://www.nuget.org/packages/Ben.Demystifier/)
 [![build](https://github.com/benaadams/Ben.Demystifier/workflows/Demystifier%20PR%20Build/badge.svg)](https://github.com/benaadams/Ben.Demystifier/actions)
 
-Output the modern .Net8.0+ features in stack traces that looks like the C# source code that generated them rather than IL formatted.
-*New FEATURE **This Fork***
-[![Demystified stacktrace](./images/image.png)](./image/image.png)
+Print your exceptions **gracefully**!
+
+FEATURE: 
+ - Use [ZString](https://github.com/Cysharp/ZString)
+ - Detailed frame stack information.
+ - Colored(and you can customize it) string.
+
+Like:
+
+
+[![Original stacktrace](./images/original.png)](./image/original.png)
+[![Demystified stacktrace](./images/demystify.png)](./image/demystify.png)
+[![Colored demystified stacktrace](./images/image.png)](./image/image.png)
 
 ### Usage
 
+```C#
+// print to console(stdout)
+exception.PrintColoredStringDemystified();
+
+// or print it by yourself!
+string msg = exception.ToColoredStringDemystified();
+
+// OR
+// save colored amd demystified string to exception
+// NOTE:this may cause something not be colored.
+exception.ColoredDemystify();
+
+// you can customize your own style!
+using Mingmoe.Demystifier;
+
+StyledBuilderOption option = new StyledBuilderOption();
+option.shortenSourceFilePath = false;
+option.SourcePathStyle.BackgroundColor = Color.Red;
+option.ParamNameStyle.ForeColor = new Color(128, 128, 128);
+option.ParamTypeStyle.isBold = true;
+
+// apply it
+ex.PrintColoredStringDemystified(option);
+ex.ToColoredStringDemystified(option);
+ex.ColoredDemystify(option);
+
+// or save it as an global and default option
+// StyledBuilderOption.GlobalOption = option;
+// ex.PrintColoredStringDemystified(); 
+// ex.ToColoredStringDemystified()
+// ex.ColoredDemystify();
+
 ```
-exception.PrintColoredStringDemystified()
-```
+
+Origin function from [Ben.Demystifier](https://github.com/benaadams/Ben.Demystifier) should works.
 
 ### Problems with current stack traces: 
 
