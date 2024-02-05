@@ -30,6 +30,8 @@ public class Color
     public static readonly Color Black = new Color(byte.MinValue, byte.MinValue, byte.MinValue);
 
     public static readonly Color White = new Color(byte.MaxValue, byte.MaxValue, byte.MaxValue);
+    
+    public static readonly Color Gray = new Color(128,128,128);
 
     public static readonly Color Red = new Color(255,0,0);
     public static readonly Color Blue = new Color(0,0,255);
