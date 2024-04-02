@@ -1,12 +1,12 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Mingmoe.Demystifier;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.IO;
 using System.Text;
+using Mingmoe.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -92,7 +92,7 @@ namespace System.Diagnostics
 
             var sb = new StyledBuilder();
 
-            Append(sb,option);
+            Append(sb, option);
 
             return sb.ToString();
         }
@@ -113,8 +113,8 @@ namespace System.Diagnostics
 
                 sb.Append("   at ");
                 frame.MethodInfo.Append(sb);
-                
-                if (frame.GetFileName() is {} fileName
+
+                if (frame.GetFileName() is { } fileName
                     // IsNullOrEmpty alone wasn't enough to disable the null warning
                     && !string.IsNullOrEmpty(fileName))
                 {
@@ -132,7 +132,7 @@ namespace System.Diagnostics
             }
         }
 
-        internal void Append(StyledBuilder sb,StyledBuilderOption option)
+        internal void Append(StyledBuilder sb, StyledBuilderOption option)
         {
             var frames = _frames;
             var count = frames.Count;
@@ -157,14 +157,14 @@ namespace System.Diagnostics
                     sb.AppendPath(
                         option.SourcePathStyle,
                         option.SourceFileStyle,
-                        TryGetFullPath(fileName),option.shortenSourceFilePath);
+                        TryGetFullPath(fileName), option.shortenSourceFilePath);
                 }
 
                 var lineNo = frame.GetFileLineNumber();
                 if (lineNo != 0)
                 {
                     sb.Append(":line ");
-                    sb.Append(option.LineNumberStyle,lineNo.ToString());
+                    sb.Append(option.LineNumberStyle, lineNo.ToString());
                 }
             }
         }

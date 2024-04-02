@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,14 +30,14 @@ public class Color
     public static readonly Color Black = new Color(byte.MinValue, byte.MinValue, byte.MinValue);
 
     public static readonly Color White = new Color(byte.MaxValue, byte.MaxValue, byte.MaxValue);
-    
-    public static readonly Color Gray = new Color(128,128,128);
 
-    public static readonly Color Red = new Color(255,0,0);
-    public static readonly Color Blue = new Color(0,0,255);
-    public static readonly Color Yellow = new Color(255,255,0);
-    public static readonly Color Lime = new Color(0,255,0);
-    public static readonly Color Green = new Color(0,128,0);
+    public static readonly Color Gray = new Color(128, 128, 128);
+
+    public static readonly Color Red = new Color(255, 0, 0);
+    public static readonly Color Blue = new Color(0, 0, 255);
+    public static readonly Color Yellow = new Color(255, 255, 0);
+    public static readonly Color Lime = new Color(0, 255, 0);
+    public static readonly Color Green = new Color(0, 128, 0);
     public static readonly Color Aqua = new Color(0, 255, 255);
     public static readonly Color Fuchsia = new Color(255, 0, 255);
     public static readonly Color Blueviolet = new Color(95, 0, 255);

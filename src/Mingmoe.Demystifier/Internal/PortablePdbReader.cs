@@ -104,8 +104,8 @@ namespace System.Diagnostics.Internal
                     {
                         var codeViewData = peReader.ReadCodeViewDebugDirectoryData(entry);
                         var peDirectory = Path.GetDirectoryName(assemblyPath);
-                        return peDirectory is null 
-                            ? null 
+                        return peDirectory is null
+                            ? null
                             : Path.Combine(peDirectory, Path.GetFileName(codeViewData.Path));
                     }
                 }

@@ -1,11 +1,11 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Mingmoe.Demystifier;
 using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
+using Mingmoe.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -52,7 +52,7 @@ namespace System.Diagnostics
         /// <summary>
         /// Demystifies the given <paramref name="exception"/> and tracks the original stack traces for the whole exception tree.
         /// </summary>
-        public static T ColoredDemystify<T>(this T exception,StyledBuilderOption? option = null) where T : Exception
+        public static T ColoredDemystify<T>(this T exception, StyledBuilderOption? option = null) where T : Exception
         {
             option = option ?? StyledBuilderOption.GlobalOption;
             try
@@ -96,7 +96,7 @@ namespace System.Diagnostics
             => new StringBuilder().AppendDemystified(exception).ToString();
 
         [Contracts.Pure]
-        public static void PrintColoredStringDemystified(this Exception exception,StyledBuilderOption? option = null)
+        public static void PrintColoredStringDemystified(this Exception exception, StyledBuilderOption? option = null)
             => Console.Write(new StyledBuilder().AppendColoredDemystified(exception,
                 option ?? StyledBuilderOption.GlobalOption));
 

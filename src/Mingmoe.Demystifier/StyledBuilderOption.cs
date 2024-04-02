@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -82,7 +82,7 @@ public class StyledBuilderOption
         KeywordAsyncStyle.ForeColor = Color.Cornflowerblue;
 
         SubMethodOrLambdaStyle.ForeColor = Color.Mediumorchid1;
-        
+
         MethodNameStyle.isItalic = true;
         MethodNameStyle.isBold = true;
         MethodNameStyle.isUnderline = true;

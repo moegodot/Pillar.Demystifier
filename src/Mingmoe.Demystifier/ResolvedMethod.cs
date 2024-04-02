@@ -1,10 +1,10 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Mingmoe.Demystifier;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
 using System.Text;
+using Mingmoe.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -13,7 +13,7 @@ namespace System.Diagnostics
         public MethodBase? MethodBase { get; set; }
 
         public Type? DeclaringType { get; set; }
-        
+
         public bool IsAsync { get; set; }
 
         public bool IsLambda { get; set; }
@@ -39,8 +39,8 @@ namespace System.Diagnostics
 
         internal bool IsSequentialEquivalent(ResolvedMethod obj)
         {
-            return 
-                IsAsync == obj.IsAsync && 
+            return
+                IsAsync == obj.IsAsync &&
                 DeclaringType == obj.DeclaringType &&
                 Name == obj.Name &&
                 IsLambda == obj.IsLambda &&
@@ -104,7 +104,7 @@ namespace System.Diagnostics
             if (MethodBase != null)
             {
                 var isFirst = true;
-                foreach(var param in Parameters)
+                foreach (var param in Parameters)
                 {
                     if (isFirst)
                     {
@@ -175,7 +175,7 @@ namespace System.Diagnostics
         {
             if (IsAsync)
             {
-                builder.Append(option.KeywordAsyncStyle,"async ");
+                builder.Append(option.KeywordAsyncStyle, "async ");
             }
 
             if (ReturnParameter != null)
@@ -183,7 +183,7 @@ namespace System.Diagnostics
                 {
                     var sb = new StringBuilder();
                     ReturnParameter.Append(sb);
-                    builder.Append(option.MethodReturnTypeStyle,sb.ToString());
+                    builder.Append(option.MethodReturnTypeStyle, sb.ToString());
                 }
                 builder.Append(" ");
             }
@@ -194,27 +194,27 @@ namespace System.Diagnostics
                 if (Name == ".ctor")
                 {
                     if (string.IsNullOrEmpty(SubMethod) && !IsLambda)
-                        builder.Append(option.KeywordNewStyle,"new ");
+                        builder.Append(option.KeywordNewStyle, "new ");
 
-                    AppendDeclaringTypeName(builder,fullName, option);
+                    AppendDeclaringTypeName(builder, fullName, option);
                 }
                 else if (Name == ".cctor")
                 {
-                    builder.Append(option.KeywordStaticStyle,"static ");
-                    AppendDeclaringTypeName(builder,fullName, option);
+                    builder.Append(option.KeywordStaticStyle, "static ");
+                    AppendDeclaringTypeName(builder, fullName, option);
                 }
                 else
                 {
-                    AppendDeclaringTypeName(builder,fullName,option)
+                    AppendDeclaringTypeName(builder, fullName, option)
                         .Append(".")
-                        .Append(option.MethodNameStyle,Name ?? "null");
+                        .Append(option.MethodNameStyle, Name ?? "null");
                 }
             }
             else
             {
                 builder.Append(option.MethodNameStyle, Name ?? "null");
             }
-            builder.Append(option.GenericArgumentStyle,GenericArguments ?? string.Empty);
+            builder.Append(option.GenericArgumentStyle, GenericArguments ?? string.Empty);
 
             builder.Append("(");
             if (MethodBase != null)
@@ -242,7 +242,7 @@ namespace System.Diagnostics
             if (!string.IsNullOrEmpty(SubMethod) || IsLambda)
             {
                 builder.Append("+");
-                builder.Append(option.SubMethodOrLambdaStyle,new StringBuilder().Append(SubMethod).ToString());
+                builder.Append(option.SubMethodOrLambdaStyle, new StringBuilder().Append(SubMethod).ToString());
                 builder.Append("(");
                 if (SubMethodBase != null)
                 {
@@ -267,7 +267,7 @@ namespace System.Diagnostics
                 builder.Append(")");
                 if (IsLambda)
                 {
-                    builder.Append(option.SubMethodOrLambdaStyle," => { }");
+                    builder.Append(option.SubMethodOrLambdaStyle, " => { }");
 
                     if (Ordinal.HasValue)
                     {
@@ -292,11 +292,11 @@ namespace System.Diagnostics
             return DeclaringType != null ? builder.AppendTypeDisplayName(DeclaringType, fullName: fullName, includeGenericParameterNames: true) : builder;
         }
 
-        private StyledBuilder AppendDeclaringTypeName(StyledBuilder builder, bool fullName,StyledBuilderOption option)
+        private StyledBuilder AppendDeclaringTypeName(StyledBuilder builder, bool fullName, StyledBuilderOption option)
         {
             StringBuilder sb = new();
-            AppendDeclaringTypeName(sb,fullName);
-            return builder.Append(option.DeclaringTypeOfMethodStyle,sb.ToString());
+            AppendDeclaringTypeName(sb, fullName);
+            return builder.Append(option.DeclaringTypeOfMethodStyle, sb.ToString());
         }
     }
 }

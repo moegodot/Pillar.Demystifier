@@ -1,8 +1,8 @@
 // Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Mingmoe.Demystifier;
 using System.Text;
+using Mingmoe.Demystifier;
 
 namespace System.Diagnostics
 {
@@ -23,7 +23,7 @@ namespace System.Diagnostics
         {
             if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
                 return sb;
-            
+
             if (!string.IsNullOrEmpty(Prefix))
             {
                 sb.Append(Prefix)
@@ -52,7 +52,7 @@ namespace System.Diagnostics
             return sb;
         }
 
-        public StyledBuilder Append(StyledBuilder sb,StyledBuilderOption option)
+        public StyledBuilder Append(StyledBuilder sb, StyledBuilderOption option)
         {
             if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
                 return sb;
@@ -65,11 +65,11 @@ namespace System.Diagnostics
 
             if (IsDynamicType)
             {
-                sb.Append(option.KeywordDynamicStyle,"dynamic");
+                sb.Append(option.KeywordDynamicStyle, "dynamic");
             }
             else if (ResolvedType != null)
             {
-                AppendTypeName(sb,option);
+                AppendTypeName(sb, option);
             }
             else
             {
@@ -79,18 +79,18 @@ namespace System.Diagnostics
             if (!string.IsNullOrEmpty(Name))
             {
                 sb.Append(" ")
-                  .Append(option.ParamNameStyle,Name ?? string.Empty);
+                  .Append(option.ParamNameStyle, Name ?? string.Empty);
             }
 
             return sb;
         }
 
-        protected virtual void AppendTypeName(StringBuilder sb) 
+        protected virtual void AppendTypeName(StringBuilder sb)
         {
             sb.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
         }
 
-        protected virtual void AppendTypeName(StyledBuilder sb,StyledBuilderOption option)
+        protected virtual void AppendTypeName(StyledBuilder sb, StyledBuilderOption option)
         {
             StringBuilder stringBuilder = new();
             stringBuilder.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Ben A Adams. All rights reserved.
+// Copyright (c) Ben A Adams. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Reflection;
@@ -13,8 +13,8 @@ namespace System.Diagnostics
 
         public StackFrame StackFrame { get; }
 
-        public bool IsRecursive 
-        { 
+        public bool IsRecursive
+        {
             get => MethodInfo.RecurseCount > 0;
             internal set => MethodInfo.RecurseCount++;
         }

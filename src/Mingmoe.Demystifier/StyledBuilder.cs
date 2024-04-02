@@ -1,10 +1,10 @@
-﻿using Cysharp.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Text;
 
 namespace Mingmoe.Demystifier;
 public class StyledBuilder : IDisposable
@@ -17,7 +17,7 @@ public class StyledBuilder : IDisposable
         return this;
     }
 
-    public StyledBuilder Append(Style style,string text)
+    public StyledBuilder Append(Style style, string text)
     {
         builder.Append(style.ToAnsiCode());
         builder.Append(text);
@@ -25,7 +25,7 @@ public class StyledBuilder : IDisposable
         return this;
     }
 
-    public StyledBuilder AppendPath(Style pathStyle,Style fileStyle,string path,bool shortenPath)
+    public StyledBuilder AppendPath(Style pathStyle, Style fileStyle, string path, bool shortenPath)
     {
         if (shortenPath)
         {
@@ -33,7 +33,8 @@ public class StyledBuilder : IDisposable
                 fileStyle,
                 Path.GetFileName(path));
         }
-        else {
+        else
+        {
             return this.Append(
                 pathStyle,
                 Path.GetDirectoryName(path) ?? string.Empty)

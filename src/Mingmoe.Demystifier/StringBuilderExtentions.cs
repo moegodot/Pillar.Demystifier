@@ -4,7 +4,7 @@
 using System.Collections.Generic.Enumerable;
 using System.Text;
 
-namespace System.Diagnostics 
+namespace System.Diagnostics
 {
     public static class StringBuilderExtentions
     {
@@ -47,7 +47,7 @@ namespace System.Diagnostics
             return builder;
         }
 
-        private static void AppendInnerException(this StringBuilder builder, Exception exception) 
+        private static void AppendInnerException(this StringBuilder builder, Exception exception)
             => builder.Append(" ---> ")
                 .AppendDemystified(exception)
                 .AppendLine()

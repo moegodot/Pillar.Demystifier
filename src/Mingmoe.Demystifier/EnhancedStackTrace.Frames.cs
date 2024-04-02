@@ -615,7 +615,7 @@ namespace System.Diagnostics
                 }
             }
 
-            if (parameterType.IsByRef && parameterType.GetElementType() is {} elementType)
+            if (parameterType.IsByRef && parameterType.GetElementType() is { } elementType)
             {
                 parameterType = elementType;
             }
@@ -771,10 +771,10 @@ namespace System.Diagnostics
                     case "Trampoline":
                         return false;
                     case var typeName when type.IsGenericType:
-                    {
-                        if (typeName == "AsyncResult`1") return false;
-                        else break;
-                    }
+                        {
+                            if (typeName == "AsyncResult`1") return false;
+                            else break;
+                        }
                 }
             }
 

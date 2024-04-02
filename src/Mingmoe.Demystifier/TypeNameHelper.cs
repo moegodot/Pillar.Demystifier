@@ -28,7 +28,7 @@ namespace System.Diagnostics
             { typeof(ulong), "ulong" },
             { typeof(ushort), "ushort" }
         };
-        
+
         public static readonly Dictionary<string, string> FSharpTypeNames = new Dictionary<string, string>
         {
             { "Unit", "void" },
@@ -101,7 +101,7 @@ namespace System.Diagnostics
             {
                 builder.Append(type.Name);
             }
-            else if (type.Assembly.ManifestModule.Name == "FSharp.Core.dll" 
+            else if (type.Assembly.ManifestModule.Name == "FSharp.Core.dll"
                      && FSharpTypeNames.TryGetValue(type.Name, out builtInName))
             {
                 builder.Append(builtInName);
@@ -174,7 +174,7 @@ namespace System.Diagnostics
                 return;
             }
 
-            if (type.Assembly.ManifestModule.Name == "FSharp.Core.dll" 
+            if (type.Assembly.ManifestModule.Name == "FSharp.Core.dll"
                      && FSharpTypeNames.TryGetValue(type.Name, out var builtInName))
             {
                 builder.Append(builtInName);
