@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cysharp.Text;
 
 namespace Mingmoe.Demystifier;
-public class StyledBuilder : IDisposable
+public class StyledBuilder
 {
-    private Utf16ValueStringBuilder builder = ZString.CreateStringBuilder();
+    private StringBuilder builder = new();
 
     public StyledBuilder Append(string text)
     {
@@ -56,21 +55,6 @@ public class StyledBuilder : IDisposable
         builder.AppendLine();
         return this;
     }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            builder.Dispose();
-        }
-    }
-
     public override string ToString()
     {
         return builder.ToString();
