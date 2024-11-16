@@ -16,6 +16,11 @@ Like:
 [![Demystified stacktrace](./images/demystify.png)](./image/demystify.png)
 [![Colored demystified stacktrace](./images/image.png)](./image/image.png)
 
+
+## Download
+
+From [nuget](https://www.nuget.org/packages/Mingmoe.Demystifier)
+
 ### Usage
 
 ```C#
