@@ -12,9 +12,9 @@ FEATURE:
 Like:
 
 
-[![Original stacktrace](./images/original.png)](./image/original.png)
-[![Demystified stacktrace](./images/demystify.png)](./image/demystify.png)
-[![Colored demystified stacktrace](./images/image.png)](./image/image.png)
+[![Original stacktrace](images/original.png)](images/original.png)
+[![Demystified stacktrace](images/demystify.png)](images/demystify.png)
+[![Colored demystified stacktrace](images/image.png)](images/image.png)
 
 
 ## Download
