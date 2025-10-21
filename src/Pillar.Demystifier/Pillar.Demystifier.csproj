@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Pillar.Demystifier</Product>
+    <Title>Pillar.Demystifier</Title>
+    <Description>The best way to output any exceptions.</Description>
+    <Authors>Ben Adams,Moe Godot</Authors>
+    <PackageId>MoeDotKawayi.Pillar.Demystifier</PackageId>
+    <PackageProjectUrl>https://github.com/moegodot/Pillar.Demystifier</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+
+    <Nullable>enable</Nullable>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+      <RepositoryType>git</RepositoryType>
+      <IncludeSource>true</IncludeSource>
+      <DebugType>embedded</DebugType>
+      <RepositoryUrl>https://github.com/moegodot/Pillar.Demystifier</RepositoryUrl>
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+    </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;netstandard2.0</TargetFrameworks>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.244" PrivateAssets="all" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="all" />
+    <PackageReference Include="System.Reflection.Metadata">
+      <Version>9.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3" Condition="'$(TargetFramework)' != 'netstandard2.1'" />
+    <PackageReference Include="ZString" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="TestInternalsVisibleTo">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+        <_Parameter1>$(AssemblyName).Test, PublicKey=00240000048000009400000006020000002400005253413100040000010001005532489e147c0de0c5872048d20f7acf99d172a599d217950eba8fdbd1f98fa5ac47901b076d2bd7da8d436e6b5d6292694902e9748514bb0c3b17e6a0e0386f22447847c1c5cd9e034f79a8fe1c120a12785f7f79617414e63861cf13d6fd1cbb4211b87202c6a52c1e22962a6bd310413c37ca440fad14ab8422707517fbae</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+      <None Include="..\..\readme.md">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+      </None>
+  </ItemGroup>
+</Project>

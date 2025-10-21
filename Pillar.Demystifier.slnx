@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/sample/">
+    <Project Path="sample/FSharpStackTrace/FSharpStackTrace.fsproj" />
+    <Project Path="sample/StackTrace/StackTrace.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="appveyor.yml" />
+    <File Path="build.ps1" />
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+    <File Path="version.json" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Pillar.Demystifier/Pillar.Demystifier.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Pillar.Demystifier.Benchmarks/Pillar.Demystifier.Benchmarks.csproj">
+      <BuildType Project="Release" />
+    </Project>
+    <Project Path="test/Pillar.Demystifier.Test/Pillar.Demystifier.Test.csproj" />
+  </Folder>
+</Solution>

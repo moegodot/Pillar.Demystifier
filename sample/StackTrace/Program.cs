@@ -1,4 +1,4 @@
-using Mingmoe.Demystifier;
+using Pillar.Demystifier;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,8 +24,8 @@ class Program
             styled.Append(new Style()
             {
                 BackgroundColor = Color.Red,
-                isBold = true,
-                isUnderline = true
+                IsBold = true,
+                IsUnderline = true
             },"Original");
             styled.AppendLine();
             styled.Append(ex.ToString());
@@ -36,8 +36,8 @@ class Program
             styled.Append(new Style()
             {
                 BackgroundColor = Color.Red,
-                isBold = true,
-                isUnderline = true
+                IsBold = true,
+                IsUnderline = true
             }, "Demystify");
             styled.AppendLine();
             styled.Append(ex.Demystify().ToString());
@@ -48,11 +48,11 @@ class Program
             styled.Append(new Style()
             {
                 BackgroundColor = Color.Red,
-                isBold = true,
-                isUnderline = true
+                IsBold = true,
+                IsUnderline = true
             }, "Colored Demystify");
             styled.AppendLine();
-            styled.Append(ex.ToColoredStringDemystified());
+            styled.Append(ex.ToStringDemystified());
 
             Console.Write(styled.ToString());
         }
