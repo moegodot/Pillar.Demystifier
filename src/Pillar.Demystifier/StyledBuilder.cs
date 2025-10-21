@@ -51,13 +51,14 @@ public sealed class StyledBuilder : IDisposable
 
     public StyledBuilder AppendLine(string text)
     {
-        _builder.AppendLine(text);
+        _builder.Append(text);
+        _builder.Append('\n');
         return this;
     }
 
     public StyledBuilder AppendLine()
     {
-        _builder.AppendLine();
+        _builder.Append('\n');
         return this;
     }
 
