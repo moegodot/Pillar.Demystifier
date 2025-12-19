@@ -254,7 +254,8 @@ namespace System.Diagnostics
                 }
 
                 methodDisplayInfo.Parameters = parameterList;
-            }
+            }else
+				methodDisplayInfo.Parameters = [];
 
             if (methodDisplayInfo.SubMethodBase == methodDisplayInfo.MethodBase)
             {
@@ -275,7 +276,8 @@ namespace System.Diagnostics
                     }
 
                     methodDisplayInfo.SubMethodParameters = parameterList;
-                }
+                }else
+					methodDisplayInfo.SubMethodParameters = [];
             }
 
             return methodDisplayInfo;
