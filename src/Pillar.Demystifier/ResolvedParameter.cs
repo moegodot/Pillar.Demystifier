@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using Pillar.Demystifier;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace System.Diagnostics
@@ -10,7 +11,22 @@ namespace System.Diagnostics
     {
         public string? Name { get; set; }
 
+		// this doesn't serialize well for generics
+		[IgnoreDataMember]
         public Type ResolvedType { get; set; }
+
+		// Only used if serialized
+		public string? ResolvedTypeStr {
+			get => _ResolvedTypeStr ??= ResolvedType == null ? string.Empty : TypeAsStr();
+			set => _ResolvedTypeStr = value;
+		}
+		private string? _ResolvedTypeStr;
+		private string TypeAsStr(){
+			StringBuilder stringBuilder = new();
+            stringBuilder.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
+			return stringBuilder.ToString();
+		}
+
 
         public string? Prefix { get; set; }
         public bool IsDynamicType { get; set; }
@@ -21,7 +37,7 @@ namespace System.Diagnostics
 
         public StringBuilder Append(StringBuilder sb)
         {
-            if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
+            if (ResolvedType?.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType?.Name == "Unit")
                 return sb;
             
             if (!string.IsNullOrEmpty(Prefix))
@@ -34,7 +50,7 @@ namespace System.Diagnostics
             {
                 sb.Append("dynamic");
             }
-            else if (ResolvedType != null)
+            else if (ResolvedType != null || _ResolvedTypeStr != null)
             {
                 AppendTypeName(sb);
             }
@@ -54,7 +70,7 @@ namespace System.Diagnostics
 
         public StyledBuilder Append(StyledBuilder sb,StyledBuilderOption option)
         {
-            if (ResolvedType.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType.Name == "Unit")
+				if (ResolvedType?.Assembly.ManifestModule.Name == "FSharp.Core.dll" && ResolvedType?.Name == "Unit")
                 return sb;
 
             if (!string.IsNullOrEmpty(Prefix))
@@ -67,7 +83,7 @@ namespace System.Diagnostics
             {
                 sb.Append(option.KeywordDynamicStyle,"dynamic");
             }
-            else if (ResolvedType != null)
+            else if (ResolvedType != null || _ResolvedTypeStr != null)
             {
                 AppendTypeName(sb,option);
             }
@@ -87,15 +103,18 @@ namespace System.Diagnostics
 
         protected virtual void AppendTypeName(StringBuilder sb) 
         {
+			if (_ResolvedTypeStr != null)
+			{
+				sb.Append(_ResolvedTypeStr);
+				return;
+			}
             sb.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
         }
 
         protected virtual void AppendTypeName(StyledBuilder sb,StyledBuilderOption option)
         {
-            StringBuilder stringBuilder = new();
-            stringBuilder.AppendTypeDisplayName(ResolvedType, fullName: false, includeGenericParameterNames: true);
 
-            sb.Append(option.ParamTypeStyle, stringBuilder.ToString());
+            sb.Append(option.ParamTypeStyle, _ResolvedTypeStr ?? TypeAsStr() );
         }
     }
 }

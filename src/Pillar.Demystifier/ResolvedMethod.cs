@@ -2,15 +2,18 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using Pillar.Demystifier;
+using System.Collections.Generic;
 using System.Collections.Generic.Enumerable;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace System.Diagnostics
 {
     public class ResolvedMethod
     {
-        public MethodBase? MethodBase { get; set; }
+		[IgnoreDataMember]
+        public MethodBase? MethodBase { get; internal set; }
 
         public Type? DeclaringType { get; set; }
         
@@ -28,13 +31,16 @@ namespace System.Diagnostics
 
         public Type[]? ResolvedGenericArguments { get; set; }
 
-        public MethodBase? SubMethodBase { get; set; }
+		[IgnoreDataMember]
+        public MethodBase? SubMethodBase { get; internal set; }
 
         public string? SubMethod { get; set; }
 
-        public EnumerableIList<ResolvedParameter> Parameters { get; set; }
 
-        public EnumerableIList<ResolvedParameter> SubMethodParameters { get; set; }
+		public IEnumerable<ResolvedParameter>? Parameters { get; set; }
+
+		public IEnumerable<ResolvedParameter>? SubMethodParameters { get; set; }
+
         public int RecurseCount { get; internal set; }
 
         internal bool IsSequentialEquivalent(ResolvedMethod obj)
@@ -101,7 +107,7 @@ namespace System.Diagnostics
             builder.Append(GenericArguments);
 
             builder.Append("(");
-            if (MethodBase != null)
+            if (Parameters != null)
             {
                 var isFirst = true;
                 foreach(var param in Parameters)
@@ -128,7 +134,7 @@ namespace System.Diagnostics
                 builder.Append("+");
                 builder.Append(SubMethod);
                 builder.Append("(");
-                if (SubMethodBase != null)
+                if (SubMethodParameters != null)
                 {
                     var isFirst = true;
                     foreach (var param in SubMethodParameters)
@@ -217,7 +223,7 @@ namespace System.Diagnostics
             builder.Append(option.GenericArgumentStyle,GenericArguments ?? string.Empty);
 
             builder.Append("(");
-            if (MethodBase != null)
+            if (Parameters != null)
             {
                 var isFirst = true;
                 foreach (var param in Parameters)
@@ -244,7 +250,7 @@ namespace System.Diagnostics
                 builder.Append("+");
                 builder.Append(option.SubMethodOrLambdaStyle,new StringBuilder().Append(SubMethod).ToString());
                 builder.Append("(");
-                if (SubMethodBase != null)
+                if (SubMethodParameters != null)
                 {
                     var isFirst = true;
                     foreach (var param in SubMethodParameters)
