@@ -26,7 +26,7 @@ namespace Pillar.Demystifier.Test
             catch (Exception e)
             {
                 var original = e.ToString();
-                var stringDemystified = e.ToStringDemystified();
+                var stringDemystified = e.ToColoredStringDemystified();
 
                 _output.WriteLine("Demystified: ");
                 _output.WriteLine(stringDemystified);
@@ -75,7 +75,7 @@ namespace Pillar.Demystifier.Test
 
             original = original.Substring(0, endLine);
 
-            var stringDemystified = ex.ToStringDemystified(StyledBuilderOption.NoColorOption);
+            var stringDemystified = ex.ToColoredStringDemystified(StyledBuilderOption.NoColorOption);
             endLine = (int)Math.Min((uint)stringDemystified.IndexOf('\n'), stringDemystified.Length);
 
             stringDemystified = stringDemystified.Substring(0, endLine);

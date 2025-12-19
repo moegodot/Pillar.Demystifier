@@ -55,8 +55,20 @@ namespace System.Diagnostics
                 .Write(new StyledBuilder().AppendDemystified(exception,
                 option ?? StyledBuilderOption.GlobalOption));
 
+		 /// <summary>
+        /// Gets demystified string representation of the <paramref name="exception"/>.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="Demystify{T}"/> method mutates the exception instance that can cause
+        /// issues if a system relies on the stack trace be in the specific form.
+        /// Unlike <see cref="Demystify{T}"/> this method is pure. It calls <see cref="Demystify{T}"/> first,
+        /// computes a demystified string representation and then restores the original state of the exception back.
+        /// </remarks>
         [Contracts.Pure]
-        public static string ToStringDemystified(this Exception exception, StyledBuilderOption? option = null)
+        public static string ToStringDemystified(this Exception exception) => new StringBuilder().AppendDemystified(exception).ToString();
+
+        [Contracts.Pure]
+        public static string ToColoredStringDemystified(this Exception exception, StyledBuilderOption? option = null)
             => new StyledBuilder().AppendDemystified(exception,
                 option ?? StyledBuilderOption.GlobalOption).ToString();
     }

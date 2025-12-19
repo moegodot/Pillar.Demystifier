@@ -15,7 +15,7 @@ namespace Pillar.Demystifier.Test
             }
             catch (Exception ex)
             {
-                var text = ex.ToStringDemystified();
+                var text = ex.ToColoredStringDemystified();
             }
         }
 

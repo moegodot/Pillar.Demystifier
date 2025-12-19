@@ -52,7 +52,7 @@ class Program
                 IsUnderline = true
             }, "Colored Demystify");
             styled.AppendLine();
-            styled.Append(ex.ToStringDemystified());
+            styled.Append(ex.ToColoredStringDemystified());
 
             Console.Write(styled.ToString());
         }
